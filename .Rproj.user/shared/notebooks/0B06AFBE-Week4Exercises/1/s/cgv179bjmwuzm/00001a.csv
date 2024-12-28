@@ -1,0 +1,4 @@
+"0","who_new <- who_new %>%"
+"0","  unite(col= age_range, c(min_age, max_age), sep = ""-"")"
+"0",""
+"0","head(who_new)"

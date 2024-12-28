@@ -1,0 +1,6 @@
+"0",""
+"0","who_new <- who_new %>%"
+"0","left_join(population"
+"0","          ,by = c(""country"", ""year""))"
+"0",""
+"0","head(who_new)"

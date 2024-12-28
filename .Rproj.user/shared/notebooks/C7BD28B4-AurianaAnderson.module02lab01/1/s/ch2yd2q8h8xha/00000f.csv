@@ -1,0 +1,6 @@
+"0",""
+"0","date_split <-  str_split(string = sales$Order.Date, pattern = ""-"")"
+"0",""
+"0","sales$order_year <- sapply(date_split, ""["", 1)"
+"0",""
+"0","aggregate(x = list(Avg_Profit = sales$Profit), by = list(order_year = sales$order_year), FUN = ""mean"")"

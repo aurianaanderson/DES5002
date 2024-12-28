@@ -1,0 +1,5 @@
+"0","colnames(texas_count) <- c(""Category"",""Count"")"
+"0",""
+"0","texas_count <- texas_count[order(names(texas_count))]"
+"0",""
+"0","texas_count"

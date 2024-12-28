@@ -1,0 +1,4 @@
+"0",""
+"0","texas <- sales[sales$State == ""Texas"",]"
+"0",""
+"0","head(texas)"

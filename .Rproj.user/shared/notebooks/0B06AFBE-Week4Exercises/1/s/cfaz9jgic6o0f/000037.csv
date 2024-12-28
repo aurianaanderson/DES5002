@@ -1,0 +1,6 @@
+"0","who_new_percentage <- who_new %>%"
+"0","  group_by(year, gender, diagnosis) %>%"
+"0","  filter(!is.na(count),!is.na(population)) %>%"
+"0","  mutate(population_percentage = (count/population)*100)"
+"0","  "
+"0","head(who_new_percentage)"

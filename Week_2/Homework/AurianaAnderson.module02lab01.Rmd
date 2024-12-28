@@ -1,0 +1,208 @@
+---
+title: "Week 2 Exercises"
+author: "Auriana Anderson"
+date: "October 28, 2024"
+output:
+ pdf_document:
+   latex_engine: lualatex
+---
+
+Please complete all exercises below. You may use stringr, lubridate, or the forcats library. 
+
+Place this at the top of your script:
+library(stringr)
+library(lubridate)
+library(forcats)
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+options(tinytex.verbose = TRUE)
+knitr::opts_knit$set(root.dir = "C:/Users/aanderson/Desktop/Intro to R and Python/DES5002 Intro to R and Python")
+
+```
+# Exercise 1
+Read the sales_pipe.txt file into an R data frame as sales. 
+
+```{r Read file in}
+library(stringr)
+library(lubridate)
+library(forcats)
+
+# setwd("C:/Users/aanderson/Desktop/Intro to R and Python/DES5002 Intro to R and Python")
+
+sales <- read.delim("Week_2/Data/sales_pipe.txt",
+                    stringsAsFactors=FALSE,
+                     sep = "|", fileEncoding = "latin1")
+
+```
+
+# Exercise 2
+You can extract a vector of columns names from a data frame using the colnames() function. Notice the first column has some odd characters. Change the column name for the FIRST column in the sales date frame to Row.ID. 
+
+**Note: You will need to assign the first element of colnames to a single character.**
+
+```{r change first column}
+
+colnames(sales)
+
+names(sales)[names(sales) == "ï..Row.ID"] <- "Row.ID" 
+
+head(sales)
+```
+
+# Exercise 3
+Convert both Ship.Date and Order.Date to date vectors within the sales data frame. What is the number of days between the most recent order and the oldest order?
+How many years is that?
+How many weeks?
+
+**Note: Use lubridate**
+
+```{r ship and order to vector}
+
+sales$Ship.Date <- mdy(sales$Ship.Date)
+
+sales$Order.Date <- mdy(sales$Order.Date)
+
+oldest_order <- min(sales$Order.Date)
+
+recent_order <-max(sales$Order.Date)
+
+#What is the number of days between the most recent order and the oldest order?
+days_between <- as.numeric(recent_order-oldest_order)
+
+#How many years is that?
+years_between <- days_between/365.25
+
+#How many weeks?
+weeks_between <- days_between/7
+
+oldest_order
+recent_order
+days_between
+years_between
+weeks_between
+
+```
+
+
+# Exercise 4
+What is the average number of days it takes to ship an order?
+
+```{r num days to ship}
+
+shiptime <-as.numeric(sales$Ship.Date - sales$Order.Date)
+
+avg_shiptime <- mean(shiptime)
+avg_shiptime
+
+```
+# Exercise 5
+How many customers have the first name Bill?
+You will need to split the customer name into first and last name segments and then use a regular expression to match the first name bill. Use the length() function to determine the number of customers with the first name Bill in the sales data. 
+
+```{r Bill}
+
+name_split <- str_split(string = sales$Customer.Name, pattern = " ")
+
+sales$first_name <- sapply(name_split, "[", 1)
+
+number_of_bills <- sum(length(which(sales$first_name == "Bill")))
+number_of_bills
+
+```
+
+# Exercise 6
+How many mentions of the word 'table' are there in the Product.Name column? 
+
+There are zero occurrences of table.
+
+There are 230 occurrences of Table.
+
+capitalization seems to make a difference here.
+
+**Note you can do this in one line of code**
+```{r count table}
+
+#I looked this up and found in order to find just the word table without 
+#it being apart of a longer word and having exact matches you must use the 
+#regex \\b on either side of the word
+
+sum(str_count(sales$Product.Name, "\\bTable\\b"))
+
+```
+
+# Exercise 7
+Create a table of counts for each state in the sales data. The counts table should be ordered alphabetically from A to Z. 
+
+```{r table of counts}
+
+count_state <-as.data.frame(table(sales$State))
+
+colnames(count_state) <- c("State","Count")
+
+count_state <- count_state[order(count_state$State),]
+
+head(count_state)
+
+```
+
+# Exercise 8
+Create an alphabetically ordered barplot for each sales Category in the State of Texas. 
+
+```{r texas only}
+
+texas <- sales[sales$State == "Texas",]
+
+head(texas)
+
+texas_count <- table(texas$Category)
+
+texas_count <- as.data.frame(texas_count)
+```
+
+
+```{R texas names}
+colnames(texas_count) <- c("Category","Count")
+
+texas_count <- texas_count[order(names(texas_count))]
+
+texas_count
+```
+
+
+```{R alphabarplot}
+
+barplot(texas_count$Count,
+        names.arg = texas_count$Category,
+        col = "pink",
+        main = "Sales Category Counts in Texas"
+        ,font.main = 4)
+
+```
+
+# Exercise 9
+Find the average profit by region.
+**Note: You will need to use the aggregate() function to do this. To understand how the function works type ?aggregate in the console.**
+
+```{r avg prof region}
+
+aggregate(x = list(Avg_Profit = sales$Profit), by = list(Region = sales$Region), FUN = "mean")
+
+```
+
+# Exercise 10
+Find the average profit by order year. 
+**Note: You will need to use the aggregate() function to do this. To understand how the function works type ?aggregate in the console.**
+
+```{r avg prof orderyr}
+
+date_split <-  str_split(string = sales$Order.Date, pattern = "-")
+
+sales$order_year <- sapply(date_split, "[", 1)
+
+aggregate(x = list(Avg_Profit = sales$Profit), by = list(order_year = sales$order_year), FUN = "mean")
+
+```
+

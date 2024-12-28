@@ -1,0 +1,2 @@
+"0",""
+"0","aggregate(x = list(Avg_Profit = sales$Profit), by = list(Region = sales$Region), FUN = ""mean"")"

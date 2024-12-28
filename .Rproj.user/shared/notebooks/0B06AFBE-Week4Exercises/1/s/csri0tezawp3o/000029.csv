@@ -1,0 +1,7 @@
+"0","who_new_group <- who_new %>%"
+"0","  group_by(gender,diagnosis) %>%"
+"0","  summarise(count_per_diagnosis = sum(count,na.rm = TRUE))"
+"1","[38;5;46m`summarise()` has grouped output by 'gender'. You can override using the
+`.groups` argument.[39m
+"
+"0","head(who_new_group)"

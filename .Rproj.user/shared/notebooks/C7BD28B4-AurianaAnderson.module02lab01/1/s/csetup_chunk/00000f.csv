@@ -1,0 +1,6 @@
+"0",""
+"0","knitr::opts_chunk$set(echo = TRUE)"
+"0",""
+"0","options(tinytex.verbose = TRUE)"
+"0","knitr::opts_knit$set(root.dir = ""C:/Users/aanderson/Desktop/Intro to R and Python/DES5002 Intro to R and Python"")"
+"0",""

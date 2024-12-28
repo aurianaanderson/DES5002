@@ -1,0 +1,4 @@
+"0",""
+"0","texas_count <- table(texas$Category)"
+"0",""
+"0","texas_count <- as.data.frame(texas_count)"

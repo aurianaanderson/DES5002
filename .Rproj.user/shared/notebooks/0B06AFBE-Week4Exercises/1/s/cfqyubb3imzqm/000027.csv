@@ -1,0 +1,7 @@
+"0","# mine is currently is in the min age column so I will move into the max column"
+"0",""
+"0","who_new <- who_new %>%"
+"0","  mutate(min_age = if_else(age == ""65"" , ""65"", min_age),"
+"0","         max_age = if_else(age == ""65"",""Inf"", max_age))"
+"0",""
+"0","head(who_new, 8)"

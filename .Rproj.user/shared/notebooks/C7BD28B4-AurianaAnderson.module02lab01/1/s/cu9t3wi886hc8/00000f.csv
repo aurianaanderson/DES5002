@@ -1,0 +1,7 @@
+"0",""
+"0","barplot(texas_count$Count,"
+"0","        names.arg = texas_count$Category,"
+"0","        col = ""pink"","
+"0","        main = ""Sales Category Counts in Texas"""
+"0","        ,font.main = 4)"
+"0",""
